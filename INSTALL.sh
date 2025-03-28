@@ -1,8 +1,15 @@
 #!/bin/bash
-
+echo "test тест"
+setfont cyr-sun16
+echo "test тест"
 # Этот скрипт предназначен для автоматической установки Arch Linux на зашифрованный LVM том в существующей группе томов
 
 # Убедитесь, что вы выполняете этот скрипт от имени суперпользователя (root)
+#проверяем на права суперпользователя
+if [[ "$EUID" -ne 0 ]]; then
+    echo -e "\033[31mСБОЙ: Данный скрипт требует права суперпользователя root\033[0m" >&2
+    exit 1
+fi
 
 # Установка переменных
 VG_NAME="mainvg"  # Укажите имя существующей группы томов
@@ -19,10 +26,6 @@ SOFT_PACK2="networkmanager btrfs-progs nano vim mc man-db less htop tmux monero 
 
 #Обновление времени
 timedatectl set-ntp true
-
-echo "test тест"
-setfont cyr-sun16
-echo "test тест"
 
 # Вывод информации о блочных устройствах
 lsblk
